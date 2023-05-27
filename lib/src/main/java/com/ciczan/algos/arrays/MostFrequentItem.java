@@ -5,6 +5,8 @@ import java.util.TreeMap;
 
 /**
  *
+ * From Udemy Course: 11 Essential Coding Interview Questions + Coding Exercises!
+ * <br/>
  * Find the most frequently occurring item in an array.
  * Example: The most frequently occurring item in [1, 3, 1, 3, 2, 1] is 1.
  * If you're given an empty array, you should return null (in Java).
