@@ -29,7 +29,32 @@ public class LinkedList {
     }
 
     public void append(int value) {
-        //TODO Write
+        Node newNode = new Node(value);
+        if (length == 0) {
+            head = newNode;
+        } else {
+            tail.next = newNode;
+        }
+        tail = newNode;
+        length++;
+    }
+
+    public Node removeLast() {
+        Node last = tail;
+        if (length == 0) throw new IllegalArgumentException("List has no element to remove.");
+        length--;
+        if (length == 0) {
+            head = null;
+            tail = null;
+        } else {
+            Node current = head;
+            while (current.next != tail ) {
+                current = current.next;
+            }
+            tail = current;
+            tail.next = null;
+        }
+        return last;
     }
 
     public void prepend(int value) {
@@ -40,7 +65,7 @@ public class LinkedList {
         //TODO Write
     }
 
-    class Node {
+    static class Node {
         int value = 0;
         Node next = null;
 
@@ -48,31 +73,6 @@ public class LinkedList {
             this.value = value;
         }
 
-    }
-
-    public void printList() {
-        Node temp = head;
-        while (temp != null) {
-            System.out.println(temp.value);
-            temp = temp.next;
-        }
-    }
-
-    public void printAll() {
-        if (length == 0) {
-            System.out.println("Head: null");
-            System.out.println("Tail: null");
-        } else {
-            System.out.println("Head: " + head.value);
-            System.out.println("Tail: " + tail.value);
-        }
-        System.out.println("Length:" + length);
-        System.out.println("\nLinked List:");
-        if (length == 0) {
-            System.out.println("empty");
-        } else {
-            printList();
-        }
     }
 
 }
