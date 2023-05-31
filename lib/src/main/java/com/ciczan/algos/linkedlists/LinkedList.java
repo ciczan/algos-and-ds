@@ -20,6 +20,18 @@ public class LinkedList {
         return head;
     }
 
+    public Node get(int pos) {
+        if (pos < 0) throw new IllegalArgumentException("Negative position.");
+        if (pos > length) return null; //Considering that passed the mark
+        var index = 0;
+        var temp = getHead();
+        while (index < pos) {
+            temp = temp.next;
+            index ++;
+        }
+        return temp;
+    }
+
     public Node getTail() {
         return tail;
     }
@@ -32,7 +44,8 @@ public class LinkedList {
         Node newNode = new Node(value);
         if (length == 0) {
             head = newNode;
-        } else {
+        }
+        else {
             tail.next = newNode;
         }
         tail = newNode;
@@ -46,9 +59,10 @@ public class LinkedList {
         if (length == 0) {
             head = null;
             tail = null;
-        } else {
+        }
+        else {
             Node current = head;
-            while (current.next != tail ) {
+            while (current.next != tail) {
                 current = current.next;
             }
             tail = current;
@@ -57,12 +71,39 @@ public class LinkedList {
         return last;
     }
 
-    public void prepend(int value) {
-        //TODO Wrtie
+    public Node removeFirst() {
+        if (length == 0) throw new IllegalArgumentException("List has no element to remove.");
+
+        Node first = head;
+        length--;
+
+        head = head.next;
+        if (head == null) {
+            tail = null;
+        }
+
+        first.next = null;
+        return first;
     }
 
-    public void insert(int index, int value) {
-        //TODO Write
+    public void prepend(int value) {
+        Node nn = new Node(value);
+        if (getLength() == 0) {
+            head = nn;
+            tail = nn;
+        }
+        else {
+            nn.next = head;
+            head = nn;
+        }
+        length++;
+    }
+
+    public boolean set(int index, int value) {
+        Node node = get(index);
+        if (node == null) return false;
+        node.value = value;
+        return true;
     }
 
     static class Node {
