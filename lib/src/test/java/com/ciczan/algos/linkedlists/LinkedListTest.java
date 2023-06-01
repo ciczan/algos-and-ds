@@ -35,20 +35,93 @@ class LinkedListTest {
     }
 
     @Test
+    void insertHead() {
+        LinkedList ll = make10to20LinkedList();
+        assertEquals(11, ll.getLength());
+
+        assertTrue(ll.insert(0, 0));
+
+        assertEquals(12, ll.getLength());
+        assertEquals(0, ll.getHead().value);
+    }
+
+    @Test
+    void insertTail() {
+        LinkedList ll = make10to20LinkedList();
+        assertEquals(11, ll.getLength());
+
+        assertTrue(ll.insert(11, 50));
+
+        assertEquals(12, ll.getLength());
+        assertEquals(50, ll.getTail().value);
+
+    }
+
+    @Test
+    void insertMiddle() {
+        LinkedList ll = make10to20LinkedList();
+        assertEquals(11, ll.getLength());
+
+        assertTrue(ll.insert(5, 50));
+
+        assertEquals(12, ll.getLength());
+        assertEquals(50, ll.get(5).value);
+    }
+
+    @Test
+    void removeHead() {
+        LinkedList ll = make10to20LinkedList();
+        assertEquals(11, ll.getLength());
+
+        LinkedList.Node removed = ll.remove(0);
+        assertEquals(10, removed.value);
+
+        assertEquals(10, ll.getLength());
+        assertEquals(11, ll.getHead().value);
+    }
+
+    @Test
+    void removeMiddle() {
+        LinkedList ll = make10to20LinkedList();
+        assertEquals(11, ll.getLength());
+
+        LinkedList.Node removed = ll.remove(5);
+        assertEquals(15, removed.value);
+
+        assertEquals(10, ll.getLength());
+        assertEquals(16, ll.get(5).value);
+    }
+
+    @Test
+    void removeTail() {
+        LinkedList ll = make10to20LinkedList();
+        assertEquals(11, ll.getLength());
+
+        LinkedList.Node removed = ll.remove(ll.getLength());
+        assertEquals(20, removed.value);
+
+        assertEquals(10, ll.getLength());
+        assertEquals(10, ll.getHead().value);
+    }
+
+    @Test
     void removeLast() {
 
-        LinkedList ll = new LinkedList(45);
-        ll.append(46);
-        ll.append(47);
-        ll.append(48);
-        ll.append(49);
-        ll.append(50);
+        LinkedList ll = make10to20LinkedList();
 
         LinkedList.Node node = ll.removeLast();
 
-        assertEquals(50, node.value);
-        assertEquals(49, ll.getTail().value);
-        assertEquals(45, ll.getHead().value);
+        assertEquals(20, node.value);
+        assertEquals(19, ll.getTail().value);
+        assertEquals(10, ll.getHead().value);
+    }
+
+    private static LinkedList make10to20LinkedList() {
+        LinkedList ll = new LinkedList(10);
+        for (int ii = 11; ii <= 20; ii++) {
+            ll.append(ii);
+        }
+        return ll;
     }
 
     @Test
@@ -74,18 +147,13 @@ class LinkedListTest {
     @Test
     void removeFirst() {
 
-        LinkedList ll = new LinkedList(45);
-        ll.append(46);
-        ll.append(47);
-        ll.append(48);
-        ll.append(49);
-        ll.append(50);
+        LinkedList ll = make10to20LinkedList();
 
         LinkedList.Node node = ll.removeFirst();
 
-        assertEquals(45, node.value);
-        assertEquals(50, ll.getTail().value);
-        assertEquals(46, ll.getHead().value);
+        assertEquals(10, node.value);
+        assertEquals(20, ll.getTail().value);
+        assertEquals(11, ll.getHead().value);
     }
 
     @Test
@@ -131,22 +199,23 @@ class LinkedListTest {
 
     @Test
     void get() {
-        LinkedList ll = new LinkedList(45);
-        ll.append(46);
-        ll.append(47);
-        ll.append(48);
-        ll.append(49);
-        ll.append(50);
+        LinkedList ll = make10to20LinkedList();
 
         Exception exception = assertThrows(IllegalArgumentException.class, () -> ll.get(-1));
 
-        assertEquals(45, ll.get(0).value);
-        assertEquals(46, ll.get(1).value);
-        assertEquals(47, ll.get(2).value);
-        assertEquals(48, ll.get(3).value);
-        assertEquals(49, ll.get(4).value);
-        assertEquals(50, ll.get(5).value);
-        assertNull(ll.get(6));
+        //This also tests the make10to20LinkedList() method.
+        assertEquals(10, ll.get(0).value);
+        assertEquals(11, ll.get(1).value);
+        assertEquals(12, ll.get(2).value);
+        assertEquals(13, ll.get(3).value);
+        assertEquals(14, ll.get(4).value);
+        assertEquals(15, ll.get(5).value);
+        assertEquals(16, ll.get(6).value);
+        assertEquals(17, ll.get(7).value);
+        assertEquals(18, ll.get(8).value);
+        assertEquals(19, ll.get(9).value);
+        assertEquals(20, ll.get(10).value);
+        assertNull(ll.get(21));
     }
 
     @Test
@@ -158,12 +227,7 @@ class LinkedListTest {
 
     @Test
     void set() {
-        LinkedList ll = new LinkedList(45);
-        ll.append(46);
-        ll.append(47);
-        ll.append(48);
-        ll.append(49);
-        ll.append(50);
+        LinkedList ll = make10to20LinkedList();
 
         assertTrue(ll.set(3, 8));
 

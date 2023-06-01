@@ -52,6 +52,42 @@ public class LinkedList {
         length++;
     }
 
+    public boolean insert(int index, int value) {
+        if (index < 0 || index > length)
+            return false;
+        if (index == 0) {
+            prepend(value);
+            return true;
+        }
+        if (index == length) {
+            append(value);
+            return true;
+        }
+        Node newNode = new Node(value);
+
+        Node leftNode = get(index -1);
+        newNode.next = leftNode.next;
+        leftNode.next = newNode;
+        length++;
+        return true;
+    }
+
+    public Node remove(int index) {
+        if (index == 0)
+            return removeFirst();
+        if (index == length)
+            return removeLast();
+
+        Node left = get(index -1);
+        Node removed = left.next;
+        left.next = removed.next;
+        removed.next = null;
+        length--;
+
+        return removed;
+
+    }
+
     public Node removeLast() {
         Node last = tail;
         if (length == 0) throw new IllegalArgumentException("List has no element to remove.");
